@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Vocal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        }
+        .container {
+            text-align: center;
+            padding: 60px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        img {
+            width: 100%;
+            max-width: 250px;
+            margin: 20px 0;
+        }
+        #nota {
+            font-size: 64px;
+            margin: 20px 0;
+            color: #555;
+        }
+        .frase {
+            font-style: italic;
+            color: #777;
+            margin-top: 15px;
+            font-size: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="tela1">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTlraWpjNTFiNjFmY3hmMTczYWl6c2J2NmgybndjMHpnZGY5eTR1YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jIWdDlz1s5a7k1o0w0/giphy.webp" alt="Onda Sonora">
+        <h1>Computando sua nota...</h1>
+    </div>
+
+    <div class="container hidden" id="tela2">
+        <h1 id="nota"></h1>
+        <img id="gif" src="" alt="Resultado" />
+        <div class="frase"></div>
+    </div>
+
+    <!-- Adicionando o elemento de áudio com um link hospedado -->
+    <audio id="audio" src="https://uc34c7d16ce8b4880b3e474615c3.dl.dropboxusercontent.com/cd/0/inline/CeOXlOA7gK2evJYfbJ24l4_HKM1b5isU2I22qWJjk7Um3cFszGLDV-U6aoKWBnE9-G5p7OTMnz1-69Q55GWhn5zk4adHpXYVcGWDNvsoQUEGzt04nfZjCCUA81l6nehYFGeNMhPtRPHS8lfu0V06cR-b/file#"></audio>
+
+    <script>
+        // Função para iniciar a análise vocal
+        function iniciarAnalise() {
+            setTimeout(irParaTela2, 3000); // Mudar para a tela 2 após 3 segundos
+        }
+
+        function irParaTela2() {
+            const nota = Math.floor(Math.random() * (100 - 70 + 1)) + 70;
+            const frasesEngraçadas = [
+                "Você é um cantor de banheiro profissional!",
+                "Cuidado! O microfone pode se apaixonar!",
+                "Você desafinou, mas o importante é a intenção!",
+                "Quem precisa de afinação quando se tem carisma?",
+                "Acredite na sua voz!",
+                "Sua energia contagia!",
+                "Você é único, continue!",
+                "A voz pode desafinar, mas a alegria é sempre afinada!",
+                "Não pare, você está indo bem!"
+            ];
+            const fraseEngraçada = frasesEngraçadas[Math.floor(Math.random() * frasesEngraçadas.length)];
+
+            document.getElementById("nota").innerHTML = `Sua nota é: <strong>${nota}</strong>`;
+            document.getElementById("nota").innerHTML += `<div class="frase">${fraseEngraçada}</div>`;
+
+            const gifElement = document.getElementById("gif");
+            if (nota > 85) {
+                gifElement.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTAzOTlwZHJwa25uaDFwZjBwbjZxMW9nMDhxY2ExM2Y0Z3pjejZ5OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/STlF2GH4HbeZAAXlq5/giphy.webp"; // Gif de palmas
+            } else if (nota >= 75) {
+                gifElement.src = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDMzcjVtdHB3dWg5cnhsbG5qNjBkcGZqNDUyYTQzNXk0dmNjcjd1dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ohk2q1HrU6mRk4Pde/giphy.webp"; // Gif de like
+            } else {
+                gifElement.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnVncm1rcWVmN3c0YTB6ajVxMHpzeGFtMW94d2tjM2lpaWY1ZzN5aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/U3rhXx0QXqVkVvWXMo/giphy.webp"; // Gif de carinha triste
+            }
+
+            // Tocar o som
+            const audio = document.getElementById("audio");
+            audio.play();
+
+            // Exibir a segunda tela
+            document.getElementById("tela1").classList.add("hidden");
+            document.getElementById("tela2").classList.remove("hidden");
+            
+            // Fechar o app após 10 segundos na tela 2
+            setTimeout(fecharApp, 8000);
+        }
+
+        function fecharApp() {
+            window.close(); // Fechar a janela do navegador (pode não funcionar em todos os navegadores)
+        }
+
+        // Iniciar a análise vocal
+        iniciarAnalise();
+    </script>
+</body>
+</html>
